@@ -6,12 +6,11 @@ WORKDIR /usr/src/flavor-api
 COPY . .
 
 # change database hostname from localhost to postgres
-RUN sed -e 's/host: localhost/host: postgres/' < .flavorrc.default.yml > .flavorrc.yml
-
-RUN chmod +x ./bin/start.sh
+RUN sed -e 's,host: localhost,host: mongo,' < .flavorrc.default.yml \
+    > .flavorrc.yml
 
 RUN npm install
 
 EXPOSE 3000
 
-CMD ["./bin/start.sh"]
+CMD ["npm", "start"]

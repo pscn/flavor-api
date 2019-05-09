@@ -15,12 +15,15 @@
     "cosmiconfig": "^5.2.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
+    "mongodb": "^3.2.4",
+    "mongodb-pool": "^2.0.3",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-openid": "^0.4.0",
     "pg": "^7.10.0",
     "postgrator": "^3.10.1",
     "response-time": "^2.3.2",
+    "uuid": "^3.3.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {

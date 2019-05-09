@@ -9,7 +9,7 @@ web:
     secret: changeme
 database:
   host: localhost
-  port: 5432
-  database: flavors
-  user: flavors
+  port: 27017
+  user: gusta
   password: changeme
+  database: gusta

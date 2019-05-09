@@ -8,15 +8,18 @@ services:
     ports:
       - 3000:3000
     links:
-      - postgres
+      - mongo
     depends_on:
-      - postgres
-  postgres:
-    image: postgres:latest
-    container_name: postgres
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
     environment:
-      - POSTGRES_USER=flavors
-      - POSTGRES_PASSWORD=changeme
-      - POSTGRES_DB=flavors
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=changeme
+      - MONGO_INITDB_DATABASE=gusta
+    volumes:
+      - ./migrations/:/docker-entrypoint-initdb.d/
     ports:
-      - 5432:5432
+      - 27017:27017

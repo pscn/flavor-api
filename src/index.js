@@ -6,7 +6,9 @@ import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
 import configs from './config';
 import loggers from './logging';
+import { initDb } from './db';
 
+import vendor from './routes/vendor';
 import flavor from './routes/flavor';
 // import recipe from './routes/recipe';
 // import vendor from './routes/vendor';
@@ -39,21 +41,27 @@ try {
   app.use(responseTime());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(passport.initialize());
-  app.use(passport.authenticate('jwt', { session: false }));
+  // app.use(passport.initialize());
+  // app.use(passport.authenticate('jwt', { session: false }));
   app.use((req, _, next) => {
     log.info(`request for ${req.path}`);
     next();
   });
 
   // routes
+  app.use('/vendor', vendor);
   app.use('/flavor', flavor);
   // app.use('/recipe', recipe);
-  // app.use('/vendor', vendor);
 
-  // start the server
-  log.info(`Listening on http://localhost:${port}`);
-  app.listen(port);
+  initDb(function(err) {
+    if (err) {
+      throw err;
+    }
+
+    // start the server
+    log.info(`Listening on http://localhost:${port}`);
+    app.listen(port);
+  });
 } catch (error) {
   log.error(`Fatal error: ${error.message}`);
 }
